@@ -25,7 +25,7 @@ public class AlumnoData {
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
             ps.setDate(4, Date.valueOf(alumno.getFechaNac()));
-            ps.setBoolean(5, alumno.isActivo());
+            ps.setBoolean(5, alumno.isEstado());
             ps.executeUpdate();
             ResultSet rs= ps.getGeneratedKeys();
             if (rs.next()){
@@ -60,7 +60,7 @@ public class AlumnoData {
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
-                alumno.setActivo(true);   
+                alumno.setEstado(true);   
             }else{
                 JOptionPane.showMessageDialog(null, "No existe el alumno.");
             }
@@ -91,7 +91,7 @@ public class AlumnoData {
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
-                alumno.setActivo(true);   
+                alumno.setEstado(true);   
             }else{
                 JOptionPane.showMessageDialog(null, "No existe el alumno.");
             }
