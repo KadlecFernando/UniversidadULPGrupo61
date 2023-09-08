@@ -75,7 +75,7 @@ public class AlumnoData {
     public Alumno buscarAlumnoPorDni(int dni){
         
             Alumno alumno = null;
-            String sql = "SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE dni = ? AND estado = 1";
+            String sql = "SELECT idAlumno,dni, apellido, nombre, fechaNacimiento FROM alumno WHERE dni = ? AND estado = 1";
             
             PreparedStatement ps = null;
         try {
