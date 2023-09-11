@@ -24,3 +24,6 @@ hs_err_pid*
 replay_pid*
 /UniversidadULPGrupo61/nbproject/private/
 UniversidadULPGrupo61/nbproject/project.properties
+*.properties
+/UniversidadULPGrupo61/build/
+/UniversidadULPGrupo61/dist/
