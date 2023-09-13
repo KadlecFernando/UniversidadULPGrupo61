@@ -163,6 +163,8 @@ public class AlumnoData {
             int fila = ps.executeUpdate();
             if (fila == 1){
                 JOptionPane.showMessageDialog(null, "Se eliminó el alumno.");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se encontró el alumno.");
             }
             ps.close();
         } catch (SQLException ex) {
