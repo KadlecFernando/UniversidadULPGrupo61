@@ -66,7 +66,7 @@ public class InscripcionData {
                 materia = matData.buscarMateria(rs.getInt("idMateria"));
                 inscripcion.setAlumno(alumno);
                 inscripcion.setMateria(materia);
-                inscripcion.setNota(rs.getInt("nota"));
+                inscripcion.setNota(rs.getDouble("nota"));
                 
                 inscripciones.add(inscripcion);
             }
