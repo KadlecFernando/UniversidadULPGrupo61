@@ -9,6 +9,7 @@ import universidadulpgrupo61.entidades.Materia;
 import universidadulpgrupo61.entidades.accesoADatos.AlumnoData;
 import universidadulpgrupo61.entidades.accesoADatos.InscripcionData;
 import universidadulpgrupo61.entidades.accesoADatos.MateriaData;
+import universidadulpgrupo61.vistas.Principal;
 
 public class UniversidadULPGrupo61 {
 
@@ -23,7 +24,7 @@ public class UniversidadULPGrupo61 {
         //maria.eliminarAlumno(3);
         /*Alumno alum = new Alumno(3,471,"","",LocalDate.of(1970, 07, 07),true);
         Materia mat = new Materia(1,"Historia",2,true);*/
-        AlumnoData aD = new AlumnoData();
+        /*AlumnoData aD = new AlumnoData();
         MateriaData mD = new MateriaData();
         InscripcionData iD = new InscripcionData();
         Alumno a1 = aD.buscarAlumno(1);
@@ -40,7 +41,11 @@ public class UniversidadULPGrupo61 {
             System.out.println(ins);
 //        }
 
-        }
+        }*/
+        
+        Principal prin = new Principal();
+        prin.setVisible(true);
+        prin.setLocationRelativeTo(null);
 
     }
 }
