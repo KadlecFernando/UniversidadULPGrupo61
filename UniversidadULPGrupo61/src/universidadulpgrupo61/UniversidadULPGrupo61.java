@@ -36,6 +36,10 @@ public class UniversidadULPGrupo61 {
             System.out.println(ins);
         }
         
+        //MateriaData md= new MateriaData();
+        //System.out.println(md.buscarMateria(1));
+        
+        
     }
    
 }
