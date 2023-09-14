@@ -1,4 +1,4 @@
-package universidadulpgrupo61;
+package Test;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -43,9 +43,44 @@ public class UniversidadULPGrupo61 {
 
         }*/
         
-        Principal prin = new Principal();
+       /* Principal prin = new Principal();
         prin.setVisible(true);
-        prin.setLocationRelativeTo(null);
+        prin.setLocationRelativeTo(null);*/
+       
+       //AlumnoData ad=new AlumnoData();
+       //MateriaData md=new MateriaData();
+       
+       //Inscripcion ins= new Inscripcion(ad.buscarAlumno(7), md.buscarMateria(1));
+       
+       //InscripcionData id= new InscripcionData();
+       /*List<Inscripcion> inscripciones = id.obtenerInscripciones();
+
+        for (Inscripcion ins : inscripciones) {
+            System.out.println(ins);
+       
+       id.obtenerMateriasCursadas(1);
+       id.obtenerMateriasNoCursadas(1);
+       id.obtenerAlumnosPorMateria(2);
+            
+        }*/
+       //id.guardarInscripcion(ins);
+       
+       //id.actualizarNota(1, 1, 6);
+       //id.borrarInscripcion(7, 1);
+       
+       /*List<Alumno> alumnos =  id.obtenerAlumnosPorMateria(2);
+
+        for (Alumno ins : alumnos) {
+            System.out.println(ins);
+        }*/
+       /*Alumno ns=new Alumno(324356,"juan","carlos",LocalDate.of(2002, 04, 12),true);
+       
+       AlumnoData sd=new AlumnoData();
+       
+       sd.guardarAlumno(ns);
+       */
+       
+       
 
     }
 }
