@@ -5,12 +5,18 @@
  */
 package universidadulpgrupo61.vistas;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Loa
  */
 public class Principal extends javax.swing.JFrame {
-
+    
+    
     /**
      * Creates new form Principal
      */
@@ -133,8 +139,12 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        FormularioAlumno na=new FormularioAlumno();
-        na.setVisible(true);
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        FormularioAlumno fma=new FormularioAlumno();
+        fma.setVisible(true);
+        Escritorio.add(fma);
+        Escritorio.moveToFront(fma);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
@@ -161,4 +171,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
+
 }
+
+

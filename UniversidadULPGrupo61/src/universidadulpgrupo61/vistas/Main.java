@@ -11,5 +11,6 @@ public class Main {
         prin.setLocationRelativeTo(null);
         
     }
-      
+    
+    
 }
