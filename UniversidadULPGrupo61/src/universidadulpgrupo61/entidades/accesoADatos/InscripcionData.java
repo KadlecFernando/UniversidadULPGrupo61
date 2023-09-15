@@ -17,8 +17,8 @@ import universidadulpgrupo61.entidades.Materia;
 public class InscripcionData {
 
     private Connection con = null;
-    private MateriaData matData = null;
-    private AlumnoData aluData = null;
+    private MateriaData matData = new MateriaData();
+    private AlumnoData aluData = new AlumnoData();
 
     public InscripcionData() {
         con = Conexion.getConnection();
