@@ -9,12 +9,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import universidadulpgrupo61.entidades.JDesktopPaneP;
 
 /**
  *
  * @author Loa
  */
 public class Principal extends javax.swing.JFrame {
+    
+    private JDesktopPaneP asd;
     
     
     /**
@@ -42,6 +45,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         Escritorio = new javax.swing.JDesktopPane();
+        jPanel1 = new FondoPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         itmFormularioA = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -72,15 +76,32 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        Escritorio.setBackground(new java.awt.Color(0, 0, 0));
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 659, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 464, Short.MAX_VALUE)
+        );
+
+        Escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 659, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 464, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         itmFormularioA.setText("Alumno");
@@ -139,7 +160,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        Escritorio.removeAll();
+        //Escritorio.removeAll();
         Escritorio.repaint();
         FormularioAlumno fma=new FormularioAlumno();
         fma.setVisible(true);
@@ -170,8 +191,24 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
+    class FondoPanel extends JPanel{
+
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g){
+            imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/ulp.jpg")).getImage();
+
+            g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+
+            setOpaque(false);
+
+            super.paint(g);
+        }
+    }
 }
 
 
