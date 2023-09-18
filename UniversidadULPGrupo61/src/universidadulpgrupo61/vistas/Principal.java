@@ -9,16 +9,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import universidadulpgrupo61.entidades.JDesktopPaneP;
 
 /**
  *
  * @author Loa
  */
 public class Principal extends javax.swing.JFrame {
-    
-    private JDesktopPaneP asd;
-    
     
     /**
      * Creates new form Principal
@@ -84,11 +80,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 659, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 464, Short.MAX_VALUE)
+            .addGap(0, 627, Short.MAX_VALUE)
         );
 
         Escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -153,7 +149,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(Escritorio)
         );
 
         pack();
@@ -164,6 +160,9 @@ public class Principal extends javax.swing.JFrame {
         Escritorio.repaint();
         FormularioAlumno fma=new FormularioAlumno();
         fma.setVisible(true);
+        int x = (Escritorio.getWidth()/2) - fma.getWidth()/2 ;
+        int y = (Escritorio.getHeight()/2) - fma.getHeight()/2;
+        fma.setLocation(x, y);
         Escritorio.add(fma);
         Escritorio.moveToFront(fma);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
