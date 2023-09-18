@@ -106,7 +106,7 @@ public class PruebaImagen extends javax.swing.JFrame {
 
         @Override
         public void paint(Graphics g){
-            imagen = new ImageIcon(getClass().getResource("/vistas/pantita (1).jpg")).getImage();
+            imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/pantita (1).jpg")).getImage();
 
             g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
 
