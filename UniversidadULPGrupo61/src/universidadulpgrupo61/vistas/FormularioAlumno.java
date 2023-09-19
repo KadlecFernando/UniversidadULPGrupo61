@@ -15,6 +15,7 @@ import javax.swing.JPanel;
  * @author ferge
  */
 public class FormularioAlumno extends javax.swing.JInternalFrame {
+
     
     
     
@@ -52,7 +53,6 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         dchFechaDeNacimiento = new com.toedter.calendar.JDateChooser();
 
         setBorder(null);
-        setClosable(true);
         setIconifiable(true);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -118,6 +118,11 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         jPanel2.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 67, 280, 33));
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 277, 71, -1));
         jPanel2.add(dchFechaDeNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 207, 216, 38));
 
@@ -142,6 +147,10 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
