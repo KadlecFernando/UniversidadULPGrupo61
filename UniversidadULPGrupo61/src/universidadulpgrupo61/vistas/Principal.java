@@ -162,7 +162,7 @@ public class Principal extends javax.swing.JFrame {
         
         //Escritorio.removeAll();
         //Escritorio.repaint();
-        Escritorio.add(FondoDesktop);
+        //Escritorio.add(FondoDesktop);
         FormularioAlumno fma=new FormularioAlumno();
         fma.setVisible(true);
         int x = (Escritorio.getWidth()/2) - fma.getWidth()/2 ;

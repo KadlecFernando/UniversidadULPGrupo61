@@ -50,7 +50,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         txtApellido = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
-        dchFechaDeNacimiento = new com.toedter.calendar.JDateChooser();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setBorder(null);
         setIconifiable(true);
@@ -124,7 +124,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 277, 71, -1));
-        jPanel2.add(dchFechaDeNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 207, 216, 38));
+        jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 200, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 530, 320));
 
@@ -159,7 +159,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSalir;
-    private com.toedter.calendar.JDateChooser dchFechaDeNacimiento;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
