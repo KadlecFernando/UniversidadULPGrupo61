@@ -160,8 +160,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         
-        Escritorio.removeAll();
-        Escritorio.repaint();
+        //Escritorio.removeAll();
+        //Escritorio.repaint();
         Escritorio.add(FondoDesktop);
         FormularioAlumno fma=new FormularioAlumno();
         fma.setVisible(true);
