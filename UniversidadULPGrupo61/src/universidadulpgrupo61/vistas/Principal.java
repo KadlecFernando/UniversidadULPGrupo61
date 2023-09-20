@@ -159,6 +159,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(itmAlumnosXMateria);
 
         jMenu9.setText("Salir");
+        jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu9MouseClicked(evt);
+            }
+        });
         jMenu9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu9ActionPerformed(evt);
@@ -256,8 +261,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
-        System.exit(0);
+       
     }//GEN-LAST:event_jMenu9ActionPerformed
+
+    private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
+         System.exit(0);
+    }//GEN-LAST:event_jMenu9MouseClicked
 
     
 

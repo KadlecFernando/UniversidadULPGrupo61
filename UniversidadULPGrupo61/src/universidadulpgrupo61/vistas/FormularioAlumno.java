@@ -5,10 +5,16 @@
  */
 package universidadulpgrupo61.vistas;
 
+import universidadulpgrupo61.accesoADatos.AlumnoData;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import universidadulpgrupo61.entidades.*;
 
 /**
  *
@@ -16,11 +22,8 @@ import javax.swing.JPanel;
  */
 public class FormularioAlumno extends javax.swing.JInternalFrame {
 
-    
-    
-    
     public FormularioAlumno() {
-        initComponents();   
+        initComponents();
     }
 
     /**
@@ -47,10 +50,11 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         btnBuscar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         txtApellido = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dchFechaNac = new com.toedter.calendar.JDateChooser();
+        btnGuardar1 = new javax.swing.JButton();
 
         setBorder(null);
 
@@ -117,11 +121,21 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
 
         btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 277, -1, -1));
 
-        btnGuardar.setForeground(new java.awt.Color(0, 0, 0));
-        btnGuardar.setText("Guardar");
-        jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 277, -1, -1));
+        btnModificar.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 90, 30));
         jPanel2.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 67, 280, 33));
 
         btnSalir.setForeground(new java.awt.Color(0, 0, 0));
@@ -132,7 +146,16 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 277, 71, -1));
-        jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 200, 40));
+        jPanel2.add(dchFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 200, 40));
+
+        btnGuardar1.setForeground(new java.awt.Color(0, 0, 0));
+        btnGuardar1.setText("Guardar");
+        btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardar1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 277, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 530, 320));
 
@@ -151,7 +174,24 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        if (txtDocumento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un documento");
+            return;
+        }
+        try {
+            int dni = Integer.parseInt(txtDocumento.getText());
+            AlumnoData aD = new AlumnoData();
+            Alumno a = aD.buscarAlumnoPorDni(dni);
+            txtNombre.setText(a.getNombre());
+            txtApellido.setText(a.getApellido());
+            rbEstado.setSelected(a.isEstado());
+            dchFechaNac.setDate(Date.valueOf(a.getFechaNac()));
+        } catch (NumberFormatException nf) {
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+        } catch (NullPointerException np) {
+        }
+
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -159,17 +199,79 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        
+        txtDocumento.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        rbEstado.setSelected(false);
+        dchFechaNac.setDate(null);
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        if (txtDocumento.getText().isEmpty() || txtApellido.getText().isEmpty() || txtNombre.getText().isEmpty()
+                || !rbEstado.isSelected() || dchFechaNac.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Rellene todos los campos.");
+            return;
+        }
+        int dni = Integer.valueOf(txtDocumento.getText());
+        LocalDate fecha = dchFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Alumno a = new Alumno(dni, txtApellido.getText(), txtNombre.getText(), fecha, true);
+        AlumnoData aD = new AlumnoData();
+        aD.modificarAlumno(a);
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if (txtDocumento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un documento");
+            return;
+        }
+        try {
+            int dni = Integer.parseInt(txtDocumento.getText());
+            AlumnoData aD = new AlumnoData();
+            Alumno a = aD.buscarAlumnoPorDni(dni);
+            if (a != null) {
+                int x = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el alumno?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+                if (x == JOptionPane.YES_OPTION) {
+                    aD.eliminarAlumno(a.getIdAlumno());
+                    txtDocumento.setText("");
+                    txtNombre.setText("");
+                    txtApellido.setText("");
+                    rbEstado.setSelected(false);
+                    dchFechaNac.setDate(null);
+                }
+            }
+        } catch (NumberFormatException nf) {
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+        } catch (NullPointerException np) {
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
+        if (txtDocumento.getText().isEmpty() || txtApellido.getText().isEmpty() || txtNombre.getText().isEmpty()
+                || !rbEstado.isSelected() || dchFechaNac.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Rellene todos los campos.");
+            return;
+        }
+        int dni = Integer.valueOf(txtDocumento.getText());
+        LocalDate fecha = dchFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Alumno a = new Alumno(dni, txtApellido.getText(), txtNombre.getText(), fecha, true);
+        AlumnoData aD = new AlumnoData();
+        aD.guardarAlumno(a);
+        txtDocumento.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        rbEstado.setSelected(false);
+        dchFechaNac.setDate(null);
+    }//GEN-LAST:event_btnGuardar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnGuardar1;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser dchFechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -185,22 +287,20 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    class FondoPanel extends JPanel{
+    class FondoPanel extends JPanel {
 
         private Image imagen;
 
         @Override
-        public void paint(Graphics g){
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/asd.jpg")).getImage();
 
-            g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
 
             setOpaque(false);
 
             super.paint(g);
         }
     }
-    
 
-    
 }

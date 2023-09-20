@@ -7,8 +7,9 @@ import universidadulpgrupo61.entidades.Alumno;
 import universidadulpgrupo61.entidades.Inscripcion;
 import universidadulpgrupo61.entidades.Materia;
 import universidadulpgrupo61.entidades.accesoADatos.AlumnoData;
-import universidadulpgrupo61.entidades.accesoADatos.InscripcionData;
-import universidadulpgrupo61.entidades.accesoADatos.MateriaData;
+import universidadulpgrupo61.accesoADatos.AlumnoData;
+import universidadulpgrupo61.accesoADatos.InscripcionData;
+import universidadulpgrupo61.accesoADatos.MateriaData;
 import universidadulpgrupo61.vistas.Principal;
 
 public class UniversidadULPGrupo61 {

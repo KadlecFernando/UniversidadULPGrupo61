@@ -1,5 +1,5 @@
 
-package universidadulpgrupo61.entidades.accesoADatos;
+package universidadulpgrupo61.accesoADatos;
 
 import java.sql.Connection;
 import java.sql.Date;
