@@ -73,7 +73,6 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem7.setText("jMenuItem7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         Escritorio.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -118,6 +117,11 @@ public class Principal extends javax.swing.JFrame {
         itmFormularioM.setText("Materia");
 
         jMenuItem3.setText("Formulario de Materia");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         itmFormularioM.add(jMenuItem3);
 
         jMenuBar1.add(itmFormularioM);
@@ -125,9 +129,19 @@ public class Principal extends javax.swing.JFrame {
         jMenu7.setText("Administración");
 
         itmAdminInscripcion.setText("Manejo de Inscripciones");
+        itmAdminInscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmAdminInscripcionActionPerformed(evt);
+            }
+        });
         jMenu7.add(itmAdminInscripcion);
 
         itmManipulacionNotas.setText("Manipulación de Notas");
+        itmManipulacionNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmManipulacionNotasActionPerformed(evt);
+            }
+        });
         jMenu7.add(itmManipulacionNotas);
 
         jMenuBar1.add(jMenu7);
@@ -135,11 +149,26 @@ public class Principal extends javax.swing.JFrame {
         itmAlumnosXMateria.setText("Consultas");
 
         jMenuItem6.setText("Alumnos por Materia");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         itmAlumnosXMateria.add(jMenuItem6);
 
         jMenuBar1.add(itmAlumnosXMateria);
 
         jMenu9.setText("Salir");
+        jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu9MouseClicked(evt);
+            }
+        });
+        jMenu9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu9ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu9);
 
         setJMenuBar(jMenuBar1);
@@ -148,7 +177,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,9 +189,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         
-        //Escritorio.removeAll();
-        //Escritorio.repaint();
-        //Escritorio.add(FondoDesktop);
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        Escritorio.add(FondoDesktop);
+        Escritorio.moveToFront(FondoDesktop);
         FormularioAlumno fma=new FormularioAlumno();
         fma.setVisible(true);
         int x = (Escritorio.getWidth()/2) - fma.getWidth()/2 ;
@@ -173,6 +203,70 @@ public class Principal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        Escritorio.add(FondoDesktop);
+        Escritorio.moveToFront(FondoDesktop);
+        FormularioMateria fmm =new FormularioMateria();
+        fmm.setVisible(true);
+        int x = (Escritorio.getWidth()/2) - fmm.getWidth()/2 ;
+        int y = (Escritorio.getHeight()/2) - fmm.getHeight()/2;
+        fmm.setLocation(x, y);
+        Escritorio.add(fmm);
+        Escritorio.moveToFront(fmm);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void itmAdminInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAdminInscripcionActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        Escritorio.add(FondoDesktop);
+        Escritorio.moveToFront(FondoDesktop);
+        FormularioInscripcion fmi =new FormularioInscripcion();
+        fmi.setVisible(true);
+        int x = (Escritorio.getWidth()/2) - fmi.getWidth()/2 ;
+        int y = (Escritorio.getHeight()/2) - fmi.getHeight()/2;
+        fmi.setLocation(x, y);
+        Escritorio.add(fmi);
+        Escritorio.moveToFront(fmi);
+    }//GEN-LAST:event_itmAdminInscripcionActionPerformed
+
+    private void itmManipulacionNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmManipulacionNotasActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        Escritorio.add(FondoDesktop);
+        Escritorio.moveToFront(FondoDesktop);
+        FormularioNotas fmn =new FormularioNotas();
+        fmn.setVisible(true);
+        int x = (Escritorio.getWidth()/2) - fmn.getWidth()/2 ;
+        int y = (Escritorio.getHeight()/2) - fmn.getHeight()/2;
+        fmn.setLocation(x, y);
+        Escritorio.add(fmn);
+        Escritorio.moveToFront(fmn);
+    }//GEN-LAST:event_itmManipulacionNotasActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        Escritorio.add(FondoDesktop);
+        Escritorio.moveToFront(FondoDesktop);
+        FormularioAlumnosPorMateria fmam =new FormularioAlumnosPorMateria();
+        fmam.setVisible(true);
+        int x = (Escritorio.getWidth()/2) - fmam.getWidth()/2 ;
+        int y = (Escritorio.getHeight()/2) - fmam.getHeight()/2;
+        fmam.setLocation(x, y);
+        Escritorio.add(fmam);
+        Escritorio.moveToFront(fmam);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
+       
+    }//GEN-LAST:event_jMenu9ActionPerformed
+
+    private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
+         System.exit(0);
+    }//GEN-LAST:event_jMenu9MouseClicked
 
     
 
