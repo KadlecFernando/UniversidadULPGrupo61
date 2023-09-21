@@ -7,8 +7,12 @@ package universidadulpgrupo61.vistas;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import universidadulpgrupo61.accesoADatos.MateriaData;
+import universidadulpgrupo61.entidades.Materia;
 
 /**
  *
@@ -16,11 +20,8 @@ import javax.swing.JPanel;
  */
 public class FormularioMateria extends javax.swing.JInternalFrame {
 
-    
-    
-    
     public FormularioMateria() {
-        initComponents();   
+        initComponents();
     }
 
     /**
@@ -84,6 +85,12 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Estado:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 170, 95, -1));
+
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 14, 120, 32));
         jPanel2.add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 118, 120, 34));
 
@@ -110,10 +117,20 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
 
         btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, -1));
 
         btnGuardar.setForeground(new java.awt.Color(0, 0, 0));
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, -1, -1));
         jPanel2.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 67, 280, 33));
 
@@ -143,7 +160,19 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        try {
+            int idMateria = Integer.parseInt(txtCodigo.getText());
+            MateriaData mD = new MateriaData();
+            Materia m = mD.buscarMateria(idMateria);
+            txtNombre.setText("");
+            txtAnio.setText("");
+            rbEstado.setSelected(false);
+            txtNombre.setText(m.getNombre());
+            txtAnio.setText(m.getAnioMateria() + "");
+            rbEstado.setSelected(m.isEstado());
+
+        } catch (NullPointerException np) {
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -151,8 +180,58 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtAnio.setText("");
+        rbEstado.setSelected(false);
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        try {
+            int idMateria = Integer.parseInt(txtCodigo.getText());
+            MateriaData mD = new MateriaData();
+            Materia m = mD.buscarMateria(idMateria);
+            if (m != null) {
+                int x = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar la materia?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+                if (x == JOptionPane.YES_OPTION) {
+                    mD.eliminarMateria(m.getIdMateria());
+                }
+            }
+        } catch (NumberFormatException nf) {
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+        } catch (NullPointerException np) {
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        int idMateria;
+        MateriaData mD = new MateriaData();
+
+        if (txtCodigo.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtAnio.getText().isEmpty()) {
+            Materia m = new Materia(txtNombre.getText(), Integer.parseInt(txtAnio.getText()), true);
+            mD.guardarMateria(m);
+        } else if (!txtCodigo.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtAnio.getText().isEmpty()) {
+            idMateria = Integer.parseInt(txtCodigo.getText());
+            Materia m = mD.buscarMateria(idMateria);
+            if (m == null) {
+                Materia m2 = new Materia(idMateria, txtNombre.getText(), Integer.parseInt(txtAnio.getText()), true);
+                mD.guardarMateriaConId(m2);
+            } else {
+                m.setNombre(txtNombre.getText());
+                m.setAnioMateria(Integer.parseInt(txtAnio.getText()));
+                m.setEstado(true);
+                mD.modificarMateria(m);
+            }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!(((caracter >= '0') && (caracter <= '9') || (caracter == KeyEvent.VK_DELETE)))) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -175,22 +254,20 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    class FondoPanel extends JPanel{
+    class FondoPanel extends JPanel {
 
         private Image imagen;
 
         @Override
-        public void paint(Graphics g){
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/asd.jpg")).getImage();
 
-            g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
 
             setOpaque(false);
 
             super.paint(g);
         }
     }
-    
 
-    
 }
