@@ -8,6 +8,7 @@ package universidadulpgrupo61.vistas;
 import universidadulpgrupo61.accesoADatos.AlumnoData;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -24,6 +25,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
 
     public FormularioAlumno() {
         initComponents();
+//        dchFechaNac.getDateEditor().setEnabled(false);
     }
 
     /**
@@ -90,6 +92,17 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Fecha de nacimiento:");
 
+        txtDocumento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDocumentoFocusLost(evt);
+            }
+        });
+        txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocumentoKeyTyped(evt);
+            }
+        });
+
         rbEstado.setContentAreaFilled(false);
 
         btnBuscar.setForeground(new java.awt.Color(0, 0, 0));
@@ -121,6 +134,24 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
+            }
+        });
+
+        dchFechaNac.setForeground(new java.awt.Color(0, 0, 0));
+        dchFechaNac.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dchFechaNacFocusLost(evt);
+            }
+        });
+        dchFechaNac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dchFechaNacKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                dchFechaNacKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dchFechaNacKeyTyped(evt);
             }
         });
 
@@ -263,7 +294,6 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         } catch (NullPointerException np) {
         }
 
-
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -314,7 +344,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         LocalDate fecha = dchFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         Alumno a = new Alumno(dni, txtApellido.getText(), txtNombre.getText(), fecha, true);
         AlumnoData aD = new AlumnoData();
-        aD.guardarAlumno(a);
+        aD.modificarAlumno(a);
         txtDocumento.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
@@ -323,8 +353,62 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnGuardar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar2ActionPerformed
-        // TODO add your handling code here:
+        if (txtDocumento.getText().isEmpty() || txtApellido.getText().isEmpty() || txtNombre.getText().isEmpty()
+                || !rbEstado.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Rellene todos los campos.");
+            return;
+        }
+        if (dchFechaNac.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ingrese una fecha valida.");
+            return;
+        }
+        try {
+            int dni = Integer.valueOf(txtDocumento.getText());
+            LocalDate fecha = dchFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Alumno a = new Alumno(dni, txtApellido.getText(), txtNombre.getText(), fecha, true);
+            AlumnoData aD = new AlumnoData();
+            aD.guardarAlumno(a);
+            txtDocumento.setText("");
+            txtNombre.setText("");
+            txtApellido.setText("");
+            rbEstado.setSelected(false);
+            dchFechaNac.setDate(null);
+        } catch (NumberFormatException nf) {
+            JOptionPane.showMessageDialog(this, "Ingreso un dato incorrecto");
+        }
     }//GEN-LAST:event_btnGuardar2ActionPerformed
+
+    private void txtDocumentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDocumentoFocusLost
+        if (!txtDocumento.getText().isEmpty()) {
+            try {
+                int dni = Integer.valueOf(txtDocumento.getText());
+            } catch (NumberFormatException nf) {
+                JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+                txtDocumento.setText("");
+                txtDocumento.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_txtDocumentoFocusLost
+
+    private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!(((caracter >= '0') && (caracter <= '9') || (caracter == KeyEvent.VK_DELETE)))) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDocumentoKeyTyped
+
+    private void dchFechaNacFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dchFechaNacFocusLost
+    }//GEN-LAST:event_dchFechaNacFocusLost
+
+    private void dchFechaNacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dchFechaNacKeyTyped
+    }//GEN-LAST:event_dchFechaNacKeyTyped
+
+    private void dchFechaNacKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dchFechaNacKeyPressed
+    }//GEN-LAST:event_dchFechaNacKeyPressed
+
+    private void dchFechaNacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dchFechaNacKeyReleased
+    }//GEN-LAST:event_dchFechaNacKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
