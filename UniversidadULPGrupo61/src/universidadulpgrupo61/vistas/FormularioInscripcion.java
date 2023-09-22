@@ -7,8 +7,15 @@ package universidadulpgrupo61.vistas;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import universidadulpgrupo61.accesoADatos.AlumnoData;
+import universidadulpgrupo61.accesoADatos.InscripcionData;
+import universidadulpgrupo61.accesoADatos.MateriaData;
 import universidadulpgrupo61.entidades.*;
 
 /**
@@ -17,10 +24,19 @@ import universidadulpgrupo61.entidades.*;
  */
 public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
 
-    
     public FormularioInscripcion() {
-        initComponents();   
+        initComponents();
+        cargarComboAlumnos();
+        cargarTablaInscripciones();
+
+        //PREGUNTAR ACTIONLISTENER
     }
 
     /**
@@ -35,8 +51,8 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         jPanel1 = new FondoPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
-        rbEstado = new javax.swing.JRadioButton();
-        rbEstado1 = new javax.swing.JRadioButton();
+        rbInscriptas = new javax.swing.JRadioButton();
+        rbNoInscriptas = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -58,11 +74,26 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        rbEstado.setContentAreaFilled(false);
-        jPanel2.add(rbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
+        rbInscriptas.setContentAreaFilled(false);
+        rbInscriptas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbInscriptasActionPerformed(evt);
+            }
+        });
+        rbInscriptas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                rbInscriptasPropertyChange(evt);
+            }
+        });
+        jPanel2.add(rbInscriptas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
 
-        rbEstado1.setContentAreaFilled(false);
-        jPanel2.add(rbEstado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, -1, -1));
+        rbNoInscriptas.setContentAreaFilled(false);
+        rbNoInscriptas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbNoInscriptasActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rbNoInscriptas, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,17 +103,17 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Materias NO Inscriptas");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 200, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 200, -1));
 
         tbInscripciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tbInscripciones.setOpaque(false);
@@ -97,7 +128,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
                 btnIncribirActionPerformed(evt);
             }
         });
-        jPanel2.add(btnIncribir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 80, -1));
+        jPanel2.add(btnIncribir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 90, -1));
 
         btnAnularInscripcion.setForeground(new java.awt.Color(0, 0, 0));
         btnAnularInscripcion.setText("Anular Inscripción");
@@ -106,7 +137,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
                 btnAnularInscripcionActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAnularInscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
+        jPanel2.add(btnAnularInscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 140, -1));
 
         btnSalir.setForeground(new java.awt.Color(0, 0, 0));
         btnSalir.setText("Salir");
@@ -130,6 +161,21 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         jLabel1.setText("Seleccione un alumno:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 230, -1));
 
+        cboAlumno.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboAlumnoItemStateChanged(evt);
+            }
+        });
+        cboAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboAlumnoActionPerformed(evt);
+            }
+        });
+        cboAlumno.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cboAlumnoPropertyChange(evt);
+            }
+        });
         jPanel1.add(cboAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 300, 30));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -156,12 +202,91 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnIncribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncribirActionPerformed
-        // TODO add your handling code here:
+        if (tbInscripciones.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una materia.");
+            return;
+        }
+
+        InscripcionData iD = new InscripcionData();
+
+        Alumno alum = (Alumno) cboAlumno.getSelectedItem();
+
+        int idMat = (Integer) tbInscripciones.getValueAt(tbInscripciones.getSelectedRow(), 0);
+        MateriaData mD = new MateriaData();
+        Materia mat = mD.buscarMateria(idMat);
+
+        Inscripcion insc = new Inscripcion(alum, mat);
+
+        iD.guardarInscripcion(insc);
     }//GEN-LAST:event_btnIncribirActionPerformed
 
     private void btnAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularInscripcionActionPerformed
-        // TODO add your handling code here:
+        if (tbInscripciones.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una materia.");
+            return;
+        }
+
+        InscripcionData iD = new InscripcionData();
+
+        Alumno alum = (Alumno) cboAlumno.getSelectedItem();
+
+        int idMat = (Integer) tbInscripciones.getValueAt(tbInscripciones.getSelectedRow(), 0);
+
+        int x = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar la inscripción?", "Eliminar", JOptionPane.YES_NO_OPTION);
+        
+        if (x == JOptionPane.YES_OPTION) {
+            iD.borrarInscripcion(alum.getIdAlumno(), idMat);
+        }
     }//GEN-LAST:event_btnAnularInscripcionActionPerformed
+
+    private void rbInscriptasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbInscriptasPropertyChange
+
+    }//GEN-LAST:event_rbInscriptasPropertyChange
+
+
+    private void rbInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInscriptasActionPerformed
+        if (cboAlumno.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione un alumno.");
+            rbInscriptas.setSelected(false);
+            return;
+        }
+
+        rbInscriptas.setSelected(true);
+        rbNoInscriptas.setSelected(false);
+        btnAnularInscripcion.setEnabled(true);
+        btnIncribir.setEnabled(false);
+
+        mostrarDatosTabla();
+    }//GEN-LAST:event_rbInscriptasActionPerformed
+
+    private void rbNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoInscriptasActionPerformed
+
+        if (cboAlumno.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione un alumno.");
+            rbNoInscriptas.setSelected(false);
+            return;
+        }
+
+        rbNoInscriptas.setSelected(true);
+        rbInscriptas.setSelected(false);
+        btnAnularInscripcion.setEnabled(false);
+        btnIncribir.setEnabled(true);
+
+        mostrarDatosTabla();
+
+    }//GEN-LAST:event_rbNoInscriptasActionPerformed
+
+    private void cboAlumnoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cboAlumnoPropertyChange
+
+    }//GEN-LAST:event_cboAlumnoPropertyChange
+
+    private void cboAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAlumnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboAlumnoActionPerformed
+
+    private void cboAlumnoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboAlumnoItemStateChanged
+        mostrarDatosTabla();
+    }//GEN-LAST:event_cboAlumnoItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -178,27 +303,65 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JRadioButton rbEstado;
-    private javax.swing.JRadioButton rbEstado1;
+    private javax.swing.JRadioButton rbInscriptas;
+    private javax.swing.JRadioButton rbNoInscriptas;
     private javax.swing.JTable tbInscripciones;
     // End of variables declaration//GEN-END:variables
 
-    class FondoPanel extends JPanel{
+    class FondoPanel extends JPanel {
 
         private Image imagen;
 
         @Override
-        public void paint(Graphics g){
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/asd.jpg")).getImage();
 
-            g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
 
             setOpaque(false);
 
             super.paint(g);
         }
     }
-    
 
-    
+    private void cargarComboAlumnos() {
+        AlumnoData aD = new AlumnoData();
+        List<Alumno> alumnos = aD.listarAlumnos();
+
+        cboAlumno.addItem(null);
+
+        for (Alumno alumno : alumnos) {
+            cboAlumno.addItem(alumno);
+        }
+
+    }
+
+    private void cargarTablaInscripciones() {
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Año");
+
+        tbInscripciones.setModel(modelo);
+
+    }
+
+    private void mostrarDatosTabla() {
+
+        InscripcionData iD = new InscripcionData();
+        Alumno a = (Alumno) cboAlumno.getSelectedItem();
+
+        List<Materia> materias = new ArrayList<>();
+
+        if (rbNoInscriptas.isSelected()) {
+            materias = iD.obtenerMateriasNoCursadas(a.getIdAlumno());
+        } else if (rbInscriptas.isSelected()) {
+            materias = iD.obtenerMateriasCursadas(a.getIdAlumno());
+        }
+
+        modelo.setRowCount(0);
+
+        for (Materia materia : materias) {
+            this.modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.getAnioMateria()});
+        }
+    }
 }

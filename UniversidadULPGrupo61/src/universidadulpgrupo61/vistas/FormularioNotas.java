@@ -7,8 +7,13 @@ package universidadulpgrupo61.vistas;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import universidadulpgrupo61.accesoADatos.AlumnoData;
+import universidadulpgrupo61.accesoADatos.InscripcionData;
 import universidadulpgrupo61.entidades.*;
 
 /**
@@ -16,10 +21,20 @@ import universidadulpgrupo61.entidades.*;
  * @author ferge
  */
 public class FormularioNotas extends javax.swing.JInternalFrame {
-
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int fila, int columna) {
+            if(columna == 2){
+                return true;
+            }
+            return false;
+        }
+    };
 
     public FormularioNotas() {
-        initComponents();   
+        initComponents();
+        cargarComboAlumnos();
+        cargarTablaActualizacionNotas();
     }
 
     /**
@@ -35,7 +50,7 @@ public class FormularioNotas extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbInscripciones = new javax.swing.JTable();
+        tbNotas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         cboAlumno = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
@@ -51,20 +66,20 @@ public class FormularioNotas extends javax.swing.JInternalFrame {
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tbInscripciones.setAutoCreateRowSorter(true);
-        tbInscripciones.setModel(new javax.swing.table.DefaultTableModel(
+        tbNotas.setAutoCreateRowSorter(true);
+        tbNotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        tbInscripciones.setOpaque(false);
-        jScrollPane1.setViewportView(tbInscripciones);
+        tbNotas.setOpaque(false);
+        jScrollPane1.setViewportView(tbNotas);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 490, 140));
 
@@ -133,7 +148,7 @@ public class FormularioNotas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tbInscripciones;
+    private javax.swing.JTable tbNotas;
     // End of variables declaration//GEN-END:variables
 
     class FondoPanel extends JPanel{
@@ -152,6 +167,44 @@ public class FormularioNotas extends javax.swing.JInternalFrame {
         }
     }
     
+    private void cargarComboAlumnos() {
+        AlumnoData aD = new AlumnoData();
+        List<Alumno> alumnos = aD.listarAlumnos();
+
+        cboAlumno.addItem(null);
+
+        for (Alumno alumno : alumnos) {
+            cboAlumno.addItem(alumno);
+        }
+
+    }
+    
+    private void cargarTablaActualizacionNotas() {
+        modelo.addColumn("Código");
+        modelo.addColumn("Materia");
+        modelo.addColumn("Nota");
+
+        tbNotas.setModel(modelo);
+
+    }
+    
+    private void mostrarDatosTabla() {
+        
+        //VER SI ES MATERIAS O INSCRIPCIONES
+        
+        InscripcionData iD = new InscripcionData();
+        Alumno a = (Alumno) cboAlumno.getSelectedItem();
+
+        List<Materia> materias = new ArrayList<>();
+
+        materias = iD.obtenerMateriasCursadas(a.getIdAlumno());
+
+        modelo.setRowCount(0);
+
+        for (Materia materia : materias) {
+            this.modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.get()});
+        }
+    }
 
     
 }
