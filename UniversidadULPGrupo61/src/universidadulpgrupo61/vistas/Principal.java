@@ -7,6 +7,8 @@ package universidadulpgrupo61.vistas;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -15,14 +17,15 @@ import javax.swing.JPanel;
  * @author Loa
  */
 public class Principal extends javax.swing.JFrame {
-    
-    public int fmaFlag=0;
-    
+
+    public int fmaFlag = 0;
+
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+        this.setTitle("Universidad de La Punta");
     }
 
     /**
@@ -188,20 +191,20 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        
+
         Escritorio.removeAll();
         Escritorio.repaint();
         Escritorio.add(FondoDesktop);
         Escritorio.moveToFront(FondoDesktop);
-        FormularioAlumno fma=new FormularioAlumno();
+        FormularioAlumno fma = new FormularioAlumno();
         fma.setVisible(true);
-        int x = (Escritorio.getWidth()/2) - fma.getWidth()/2 ;
-        int y = (Escritorio.getHeight()/2) - fma.getHeight()/2;
+        int x = (Escritorio.getWidth() / 2) - fma.getWidth() / 2;
+        int y = (Escritorio.getHeight() / 2) - fma.getHeight() / 2;
         fma.setLocation(x, y);
         Escritorio.add(fma);
         Escritorio.moveToFront(fma);
-        
-        
+
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -209,10 +212,10 @@ public class Principal extends javax.swing.JFrame {
         Escritorio.repaint();
         Escritorio.add(FondoDesktop);
         Escritorio.moveToFront(FondoDesktop);
-        FormularioMateria fmm =new FormularioMateria();
+        FormularioMateria fmm = new FormularioMateria();
         fmm.setVisible(true);
-        int x = (Escritorio.getWidth()/2) - fmm.getWidth()/2 ;
-        int y = (Escritorio.getHeight()/2) - fmm.getHeight()/2;
+        int x = (Escritorio.getWidth() / 2) - fmm.getWidth() / 2;
+        int y = (Escritorio.getHeight() / 2) - fmm.getHeight() / 2;
         fmm.setLocation(x, y);
         Escritorio.add(fmm);
         Escritorio.moveToFront(fmm);
@@ -223,10 +226,10 @@ public class Principal extends javax.swing.JFrame {
         Escritorio.repaint();
         Escritorio.add(FondoDesktop);
         Escritorio.moveToFront(FondoDesktop);
-        FormularioInscripcion fmi =new FormularioInscripcion();
+        FormularioInscripcion fmi = new FormularioInscripcion();
         fmi.setVisible(true);
-        int x = (Escritorio.getWidth()/2) - fmi.getWidth()/2 ;
-        int y = (Escritorio.getHeight()/2) - fmi.getHeight()/2;
+        int x = (Escritorio.getWidth() / 2) - fmi.getWidth() / 2;
+        int y = (Escritorio.getHeight() / 2) - fmi.getHeight() / 2;
         fmi.setLocation(x, y);
         Escritorio.add(fmi);
         Escritorio.moveToFront(fmi);
@@ -237,10 +240,10 @@ public class Principal extends javax.swing.JFrame {
         Escritorio.repaint();
         Escritorio.add(FondoDesktop);
         Escritorio.moveToFront(FondoDesktop);
-        FormularioNotas fmn =new FormularioNotas();
+        FormularioNotas fmn = new FormularioNotas();
         fmn.setVisible(true);
-        int x = (Escritorio.getWidth()/2) - fmn.getWidth()/2 ;
-        int y = (Escritorio.getHeight()/2) - fmn.getHeight()/2;
+        int x = (Escritorio.getWidth() / 2) - fmn.getWidth() / 2;
+        int y = (Escritorio.getHeight() / 2) - fmn.getHeight() / 2;
         fmn.setLocation(x, y);
         Escritorio.add(fmn);
         Escritorio.moveToFront(fmn);
@@ -251,24 +254,23 @@ public class Principal extends javax.swing.JFrame {
         Escritorio.repaint();
         Escritorio.add(FondoDesktop);
         Escritorio.moveToFront(FondoDesktop);
-        FormularioAlumnosPorMateria fmam =new FormularioAlumnosPorMateria();
+        FormularioAlumnosPorMateria fmam = new FormularioAlumnosPorMateria();
         fmam.setVisible(true);
-        int x = (Escritorio.getWidth()/2) - fmam.getWidth()/2 ;
-        int y = (Escritorio.getHeight()/2) - fmam.getHeight()/2;
+        int x = (Escritorio.getWidth() / 2) - fmam.getWidth() / 2;
+        int y = (Escritorio.getHeight() / 2) - fmam.getHeight() / 2;
         fmam.setLocation(x, y);
         Escritorio.add(fmam);
         Escritorio.moveToFront(fmam);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
-       
+
     }//GEN-LAST:event_jMenu9ActionPerformed
 
     private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
-         System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jMenu9MouseClicked
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
@@ -294,15 +296,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 
-    class FondoPanel extends JPanel{
+    class FondoPanel extends JPanel {
 
         private Image imagen;
 
         @Override
-        public void paint(Graphics g){
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/ulp.jpg")).getImage();
 
-            g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
 
             setOpaque(false);
 
@@ -310,5 +312,3 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 }
-
-

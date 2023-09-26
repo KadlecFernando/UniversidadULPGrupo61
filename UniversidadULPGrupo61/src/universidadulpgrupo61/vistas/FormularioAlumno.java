@@ -25,6 +25,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
 
     public FormularioAlumno() {
         initComponents();
+        this.setTitle("Formulario Alumno");
 //        dchFechaNac.getDateEditor().setEnabled(false);
     }
 

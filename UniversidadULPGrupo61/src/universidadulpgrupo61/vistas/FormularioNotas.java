@@ -33,6 +33,7 @@ public class FormularioNotas extends javax.swing.JInternalFrame {
 
     public FormularioNotas() {
         initComponents();
+        this.setTitle("Formulario Notas");
         cargarComboAlumnos();
         cargarTablaActualizacionNotas();
     }
@@ -201,9 +202,9 @@ public class FormularioNotas extends javax.swing.JInternalFrame {
 
         modelo.setRowCount(0);
 
-        for (Materia materia : materias) {
-            this.modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.get()});
-        }
+//        for (Materia materia : materias) {
+//            this.modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.get()});
+//        }
     }
 
     
