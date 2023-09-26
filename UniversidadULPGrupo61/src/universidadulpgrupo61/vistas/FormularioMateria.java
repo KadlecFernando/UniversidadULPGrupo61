@@ -22,6 +22,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
 
     public FormularioMateria() {
         initComponents();
+        this.setTitle("Formulario Materia");
     }
 
     /**

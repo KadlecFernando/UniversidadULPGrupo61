@@ -7,8 +7,13 @@ package universidadulpgrupo61.vistas;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import universidadulpgrupo61.accesoADatos.InscripcionData;
+import universidadulpgrupo61.accesoADatos.MateriaData;
 import universidadulpgrupo61.entidades.*;
 
 /**
@@ -17,11 +22,19 @@ import universidadulpgrupo61.entidades.*;
  */
 public class FormularioAlumnosPorMateria extends javax.swing.JInternalFrame {
 
-    
-    
-    
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
+
     public FormularioAlumnosPorMateria() {
-        initComponents();   
+        initComponents();
+        this.setTitle("Formulario Alumnos por materia");
+        cargaComboMateria();
+        cargarTablaMateria();
+        this.setFrameIcon(frameIcon);
     }
 
     /**
@@ -73,6 +86,11 @@ public class FormularioAlumnosPorMateria extends javax.swing.JInternalFrame {
         jLabel1.setText("Seleccione una materia:");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 230, -1));
 
+        cboMateria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboMateriaItemStateChanged(evt);
+            }
+        });
         jPanel2.add(cboMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 290, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 530, 210));
@@ -106,8 +124,17 @@ public class FormularioAlumnosPorMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.setVisible(false);
+        dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void cboMateriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboMateriaItemStateChanged
+        if (cboMateria.getSelectedItem() != null) {
+            mostrarDatosTabla();
+        } else {
+            modelo.setRowCount(0);
+        }
+
+    }//GEN-LAST:event_cboMateriaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -122,22 +149,52 @@ public class FormularioAlumnosPorMateria extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbAlumnosPorMateria;
     // End of variables declaration//GEN-END:variables
 
-    class FondoPanel extends JPanel{
+    class FondoPanel extends JPanel {
 
         private Image imagen;
 
         @Override
-        public void paint(Graphics g){
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/asd.jpg")).getImage();
 
-            g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
 
             setOpaque(false);
 
             super.paint(g);
         }
     }
-    
 
-    
+    private void cargaComboMateria() {
+        MateriaData mD = new MateriaData();
+        List<Materia> materias = mD.listaMaterias();
+        cboMateria.addItem(null);
+        for (Materia materia : materias) {
+            cboMateria.addItem(materia);
+        }
+    }
+
+    private void cargarTablaMateria() {
+        modelo.addColumn("ID");
+        modelo.addColumn("Dni");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Nombre");
+
+        tbAlumnosPorMateria.setModel(modelo);
+
+    }
+
+    private void mostrarDatosTabla() {
+
+        Materia m = (Materia) cboMateria.getSelectedItem();
+
+        InscripcionData iD = new InscripcionData();
+        List<Alumno> alumnos = iD.obtenerAlumnosPorMateria(m.getIdMateria());
+
+        modelo.setRowCount(0);
+        for (Alumno alumno : alumnos) {
+            JOptionPane.showMessageDialog(this, alumno.getDni());
+            modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre()});
+        }
+    }
 }

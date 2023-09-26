@@ -33,6 +33,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
     public FormularioInscripcion() {
         initComponents();
+        this.setTitle("Formulario Inscripcion");
         cargarComboAlumnos();
         cargarTablaInscripciones();
 
@@ -218,6 +219,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         Inscripcion insc = new Inscripcion(alum, mat);
 
         iD.guardarInscripcion(insc);
+        this.rbNoInscriptasActionPerformed(null);
     }//GEN-LAST:event_btnIncribirActionPerformed
 
     private void btnAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularInscripcionActionPerformed
@@ -233,10 +235,11 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         int idMat = (Integer) tbInscripciones.getValueAt(tbInscripciones.getSelectedRow(), 0);
 
         int x = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar la inscripción?", "Eliminar", JOptionPane.YES_NO_OPTION);
-        
+
         if (x == JOptionPane.YES_OPTION) {
             iD.borrarInscripcion(alum.getIdAlumno(), idMat);
         }
+        this.rbInscriptasActionPerformed(null);
     }//GEN-LAST:event_btnAnularInscripcionActionPerformed
 
     private void rbInscriptasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbInscriptasPropertyChange
@@ -346,22 +349,26 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
     }
 
     private void mostrarDatosTabla() {
-
+        if(cboAlumno.getSelectedItem()==null){
+            modelo.setRowCount(0);
+            return;
+        }
         InscripcionData iD = new InscripcionData();
         Alumno a = (Alumno) cboAlumno.getSelectedItem();
 
         List<Materia> materias = new ArrayList<>();
+    
+            if (rbNoInscriptas.isSelected()) {
+                materias = iD.obtenerMateriasNoCursadas(a.getIdAlumno());
+            } else if (rbInscriptas.isSelected()) {
+                materias = iD.obtenerMateriasCursadas(a.getIdAlumno());
+            }
 
-        if (rbNoInscriptas.isSelected()) {
-            materias = iD.obtenerMateriasNoCursadas(a.getIdAlumno());
-        } else if (rbInscriptas.isSelected()) {
-            materias = iD.obtenerMateriasCursadas(a.getIdAlumno());
-        }
+            modelo.setRowCount(0);
 
-        modelo.setRowCount(0);
-
-        for (Materia materia : materias) {
-            this.modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.getAnioMateria()});
+            for (Materia materia : materias) {
+                this.modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.getAnioMateria()});
+            }
         }
     }
-}
+
