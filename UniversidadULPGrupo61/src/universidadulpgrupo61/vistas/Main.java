@@ -10,6 +10,5 @@ public class Main {
         prin.setVisible(true);
         prin.setLocationRelativeTo(null);        
     }
-    
-    
+
 }

@@ -279,7 +279,6 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (txtDocumento.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese un documento");
             return;
         }
         try {
@@ -291,7 +290,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
             rbEstado.setSelected(a.isEstado());
             dchFechaNac.setDate(Date.valueOf(a.getFechaNac()));
         } catch (NumberFormatException nf) {
-            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+            //JOptionPane.showMessageDialog(this, "Ingrese un DNI válido.");
         } catch (NullPointerException np) {
         }
 
@@ -319,7 +318,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
             AlumnoData aD = new AlumnoData();
             Alumno a = aD.buscarAlumnoPorDni(dni);
             if (a != null) {
-                int x = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el alumno?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+                int x = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el alumno " + a.getApellido() + ", " + a.getNombre() + "?", "Confirmacion", JOptionPane.YES_NO_OPTION);
                 if (x == JOptionPane.YES_OPTION) {
                     aD.eliminarAlumno(a.getIdAlumno());
                     txtDocumento.setText("");
@@ -384,7 +383,8 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
             try {
                 int dni = Integer.valueOf(txtDocumento.getText());
             } catch (NumberFormatException nf) {
-                JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+                //JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+                JOptionPane.showMessageDialog(this, "Ingrese un DNI válido.");
                 txtDocumento.setText("");
                 txtDocumento.requestFocus();
             }
@@ -394,7 +394,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
     private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
         char caracter = evt.getKeyChar();
         if (!(((caracter >= '0') && (caracter <= '9') || (caracter == KeyEvent.VK_DELETE)))) {
-            getToolkit().beep();
+            //getToolkit().beep();
             evt.consume();
         }
     }//GEN-LAST:event_txtDocumentoKeyTyped
