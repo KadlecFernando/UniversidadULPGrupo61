@@ -43,6 +43,8 @@ public class InscripcionData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripción " + ex.getMessage());
+        } catch (NullPointerException np){
+            JOptionPane.showMessageDialog(null, "No hay registros que modificar.");
         }
 
     }
@@ -87,12 +89,14 @@ public class InscripcionData {
             ps.setInt(2, idAlumno);
             ps.setInt(3, idMateria);
             int fila = ps.executeUpdate();
-            if (fila == 1) {
-                JOptionPane.showMessageDialog(null, "Nota actualizada");
-            }
+//            if (fila == 1) {
+//                JOptionPane.showMessageDialog(null, "Nota actualizada");
+//            }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+        } catch (NumberFormatException np){
+            JOptionPane.showMessageDialog(null, "Alguna nota ingresada no es válida.");
         }
     }
 
@@ -208,6 +212,7 @@ public class InscripcionData {
             while (rs.next()) {
                 Alumno alumno = new Alumno();
                 alumno.setIdAlumno(rs.getInt("idAlumno"));
+                alumno.setDni(rs.getInt("dni"));
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
@@ -220,4 +225,6 @@ public class InscripcionData {
         }
         return alumnosMateria;
     }
+    
+    
 }

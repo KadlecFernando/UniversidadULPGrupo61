@@ -193,7 +193,6 @@ public class FormularioAlumnosPorMateria extends javax.swing.JInternalFrame {
 
         modelo.setRowCount(0);
         for (Alumno alumno : alumnos) {
-            JOptionPane.showMessageDialog(this, alumno.getDni());
             modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre()});
         }
     }

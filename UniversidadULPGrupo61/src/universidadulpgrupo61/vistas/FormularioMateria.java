@@ -82,9 +82,23 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Estado:");
 
+        txtCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoFocusLost(evt);
+            }
+        });
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyTyped(evt);
+            }
+        });
+
+        txtAnio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtAnioKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnioKeyTyped(evt);
             }
         });
 
@@ -138,12 +152,6 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84)
-                        .addComponent(btnBuscar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -152,6 +160,12 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
                         .addGap(37, 37, 37)
                         .addComponent(rbEstado))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscar))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(btnLimpiar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -169,15 +183,15 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(16, 16, 16)
                         .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnBuscar))
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar))))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -230,7 +244,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
             txtAnio.setText(m.getAnioMateria() + "");
             rbEstado.setSelected(m.isEstado());
 
-        } catch (NullPointerException np) {
+        } catch (NullPointerException | NumberFormatException ex) {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -287,10 +301,35 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
         char caracter = evt.getKeyChar();
         if (!(((caracter >= '0') && (caracter <= '9') || (caracter == KeyEvent.VK_DELETE)))) {
-            getToolkit().beep();
+            //getToolkit().beep();
             evt.consume();
         }
     }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoFocusLost
+        if (!txtCodigo.getText().isEmpty()) {
+            try {
+                int dni = Integer.valueOf(txtCodigo.getText());
+            } catch (NumberFormatException nf) {
+                //JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+                JOptionPane.showMessageDialog(this, "Ingrese un código válido.");
+                txtCodigo.setText("");
+                txtCodigo.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_txtCodigoFocusLost
+
+    private void txtAnioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnioKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnioKeyPressed
+
+    private void txtAnioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnioKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!(((caracter >= '0') && (caracter <= '9') || (caracter == KeyEvent.VK_DELETE)))) {
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtAnioKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
