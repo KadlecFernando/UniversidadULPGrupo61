@@ -318,7 +318,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
         @Override
         public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/asd.jpg")).getImage();
+            imagen = new ImageIcon(getClass().getResource("/imagenes/asd.jpg")).getImage();
 
             g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
 

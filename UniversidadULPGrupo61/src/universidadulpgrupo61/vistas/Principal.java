@@ -5,6 +5,7 @@
  */
 package universidadulpgrupo61.vistas;
 
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -17,7 +18,7 @@ import javax.swing.JPanel;
  * @author Loa
  */
 public class Principal extends javax.swing.JFrame {
-
+AudioClip sound;
     //VER QUE LOS FRAME NO SE DUPLIQUEN Y SE PUEDAN MINIMIZAR.
 
     /**
@@ -26,6 +27,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setTitle("Universidad de La Punta");
+        sound=java.applet.Applet.newAudioClip(getClass().getResource("/imagenes/Dale Dale Boca.wav"));
     }
 
     /**
@@ -45,7 +47,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
-        ImageIcon icono = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/ulp.jpg"));
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/ulp.jpg"));
         Image imagen = icono.getImage();
         Escritorio = new javax.swing.JDesktopPane(){
             public void paintComponent(Graphics g){
@@ -181,7 +183,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-
+        sound.play();
         Escritorio.removeAll();
         Escritorio.repaint();
         FormularioAlumno fma = new FormularioAlumno();
@@ -269,20 +271,4 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
-
-    class FondoPanel extends JPanel {
-
-        private Image imagen;
-
-        @Override
-        public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/ulp.jpg")).getImage();
-
-            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-
-            setOpaque(false);
-
-            super.paint(g);
-        }
-    }
 }
