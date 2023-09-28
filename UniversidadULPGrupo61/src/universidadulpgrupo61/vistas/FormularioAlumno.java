@@ -342,14 +342,20 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         }
         int dni = Integer.valueOf(txtDocumento.getText());
         LocalDate fecha = dchFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Alumno a = new Alumno(dni, txtApellido.getText(), txtNombre.getText(), fecha, true);
         AlumnoData aD = new AlumnoData();
+        Alumno a = aD.buscarAlumnoPorDni(dni);
+        if (a!=null){
+        a.setApellido(txtApellido.getText());
+        a.setNombre(txtNombre.getText());
+        a.setEstado(rbEstado.isSelected());
+        a.setFechaNac(fecha);
         aD.modificarAlumno(a);
         txtDocumento.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
         rbEstado.setSelected(false);
         dchFechaNac.setDate(null);
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnGuardar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar2ActionPerformed

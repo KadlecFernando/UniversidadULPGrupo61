@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  * @author Loa
  */
 public class Principal extends javax.swing.JFrame {
-AudioClip sound;
+    //AudioClip sound;
     //VER QUE LOS FRAME NO SE DUPLIQUEN Y SE PUEDAN MINIMIZAR.
 
     /**
@@ -27,7 +27,7 @@ AudioClip sound;
     public Principal() {
         initComponents();
         this.setTitle("Universidad de La Punta");
-        sound=java.applet.Applet.newAudioClip(getClass().getResource("/imagenes/Dale Dale Boca.wav"));
+        //sound=java.applet.Applet.newAudioClip(getClass().getResource("/imagenes/Dale Dale Boca.wav"));
     }
 
     /**
@@ -183,7 +183,7 @@ AudioClip sound;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        sound.play();
+        //sound.play();
         Escritorio.removeAll();
         Escritorio.repaint();
         FormularioAlumno fma = new FormularioAlumno();
