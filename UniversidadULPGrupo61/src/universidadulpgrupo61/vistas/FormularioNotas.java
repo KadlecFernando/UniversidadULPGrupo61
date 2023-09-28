@@ -43,7 +43,6 @@ public class FormularioNotas extends javax.swing.JInternalFrame {
         this.setTitle("Formulario Notas");
         cargarComboAlumnos();
         cargarTablaActualizacionNotas();
-       
 
     }
 
@@ -160,16 +159,16 @@ public class FormularioNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
-        if (cboAlumno.getSelectedItem() == null){
+
+        if (cboAlumno.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno.");
             return;
         }
-        
-        if (tbNotas.getRowCount() == 0){
+
+        if (tbNotas.getRowCount() == 0) {
             return;
         }
-        
+
         InscripcionData iD = new InscripcionData();
         Alumno a = (Alumno) cboAlumno.getSelectedItem();
 
@@ -180,23 +179,29 @@ public class FormularioNotas extends javax.swing.JInternalFrame {
 //        } catch (AWTException ex) {
 //
 //        }
-
-        if (tbNotas.isEditing()){
+        if (tbNotas.isEditing()) {
             TableCellEditor editor = tbNotas.getCellEditor();
             editor.stopCellEditing();
         }
-        
+
         for (int fila = 0; fila <= tbNotas.getRowCount() - 1; fila++) {
             int idAlumno = a.getIdAlumno();
             int idMateria = (Integer) tbNotas.getValueAt(fila, 0);
-            try{
+            try {
                 double nota = Double.valueOf(tbNotas.getValueAt(fila, 2).toString());
-                iD.actualizarNota(idAlumno, idMateria, nota);
-            }catch (NumberFormatException nf){
+                if (nota >= 0 && nota < 11) {
+                    iD.actualizarNota(idAlumno, idMateria, nota);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ingrese una nota válida.");
+                    tbNotas.setValueAt(nota, fila, 2);
+                    return;
+
+                }
+            } catch (NumberFormatException nf) {
                 JOptionPane.showMessageDialog(this, "Ingrese una nota válida.");
                 tbNotas.setValueAt(null, fila, 2);
                 return;
-            }  
+            }
         }
         JOptionPane.showMessageDialog(null, "Actualización de notas exitosa.");
     }//GEN-LAST:event_btnGuardarActionPerformed
