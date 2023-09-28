@@ -5,6 +5,7 @@
  */
 package universidadulpgrupo61.vistas;
 
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -17,8 +18,8 @@ import javax.swing.JPanel;
  * @author Loa
  */
 public class Principal extends javax.swing.JFrame {
-
-    public int fmaFlag = 0;
+AudioClip sound;
+    //VER QUE LOS FRAME NO SE DUPLIQUEN Y SE PUEDAN MINIMIZAR.
 
     /**
      * Creates new form Principal
@@ -26,6 +27,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setTitle("Universidad de La Punta");
+        sound=java.applet.Applet.newAudioClip(getClass().getResource("/imagenes/Dale Dale Boca.wav"));
     }
 
     /**
@@ -45,8 +47,13 @@ public class Principal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
-        Escritorio = new javax.swing.JDesktopPane();
-        FondoDesktop = new FondoPanel();
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/ulp.jpg"));
+        Image imagen = icono.getImage();
+        Escritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         itmFormularioA = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -79,30 +86,15 @@ public class Principal extends javax.swing.JFrame {
 
         Escritorio.setBackground(new java.awt.Color(0, 0, 0));
 
-        FondoDesktop.setBackground(new java.awt.Color(51, 51, 255));
-
-        javax.swing.GroupLayout FondoDesktopLayout = new javax.swing.GroupLayout(FondoDesktop);
-        FondoDesktop.setLayout(FondoDesktopLayout);
-        FondoDesktopLayout.setHorizontalGroup(
-            FondoDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 803, Short.MAX_VALUE)
-        );
-        FondoDesktopLayout.setVerticalGroup(
-            FondoDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 627, Short.MAX_VALUE)
-        );
-
-        Escritorio.setLayer(FondoDesktop, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FondoDesktop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 803, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FondoDesktop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 627, Short.MAX_VALUE)
         );
 
         itmFormularioA.setText("Alumno");
@@ -191,18 +183,15 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-
+        sound.play();
         Escritorio.removeAll();
         Escritorio.repaint();
-        Escritorio.add(FondoDesktop);
-        Escritorio.moveToFront(FondoDesktop);
         FormularioAlumno fma = new FormularioAlumno();
         fma.setVisible(true);
         int x = (Escritorio.getWidth() / 2) - fma.getWidth() / 2;
         int y = (Escritorio.getHeight() / 2) - fma.getHeight() / 2;
         fma.setLocation(x, y);
         Escritorio.add(fma);
-        Escritorio.moveToFront(fma);
 
 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -210,57 +199,45 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        Escritorio.add(FondoDesktop);
-        Escritorio.moveToFront(FondoDesktop);
         FormularioMateria fmm = new FormularioMateria();
         fmm.setVisible(true);
         int x = (Escritorio.getWidth() / 2) - fmm.getWidth() / 2;
         int y = (Escritorio.getHeight() / 2) - fmm.getHeight() / 2;
         fmm.setLocation(x, y);
         Escritorio.add(fmm);
-        Escritorio.moveToFront(fmm);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void itmAdminInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAdminInscripcionActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        Escritorio.add(FondoDesktop);
-        Escritorio.moveToFront(FondoDesktop);
         FormularioInscripcion fmi = new FormularioInscripcion();
         fmi.setVisible(true);
         int x = (Escritorio.getWidth() / 2) - fmi.getWidth() / 2;
         int y = (Escritorio.getHeight() / 2) - fmi.getHeight() / 2;
         fmi.setLocation(x, y);
         Escritorio.add(fmi);
-        Escritorio.moveToFront(fmi);
     }//GEN-LAST:event_itmAdminInscripcionActionPerformed
 
     private void itmManipulacionNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmManipulacionNotasActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        Escritorio.add(FondoDesktop);
-        Escritorio.moveToFront(FondoDesktop);
         FormularioNotas fmn = new FormularioNotas();
         fmn.setVisible(true);
         int x = (Escritorio.getWidth() / 2) - fmn.getWidth() / 2;
         int y = (Escritorio.getHeight() / 2) - fmn.getHeight() / 2;
         fmn.setLocation(x, y);
         Escritorio.add(fmn);
-        Escritorio.moveToFront(fmn);
     }//GEN-LAST:event_itmManipulacionNotasActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        Escritorio.add(FondoDesktop);
-        Escritorio.moveToFront(FondoDesktop);
         FormularioAlumnosPorMateria fmam = new FormularioAlumnosPorMateria();
         fmam.setVisible(true);
         int x = (Escritorio.getWidth() / 2) - fmam.getWidth() / 2;
         int y = (Escritorio.getHeight() / 2) - fmam.getHeight() / 2;
         fmam.setLocation(x, y);
         Escritorio.add(fmam);
-        Escritorio.moveToFront(fmam);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
@@ -274,7 +251,6 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
-    private javax.swing.JPanel FondoDesktop;
     private javax.swing.JMenuItem itmAdminInscripcion;
     private javax.swing.JMenu itmAlumnosXMateria;
     private javax.swing.JMenu itmFormularioA;
@@ -295,20 +271,4 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
-
-    class FondoPanel extends JPanel {
-
-        private Image imagen;
-
-        @Override
-        public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/ulp.jpg")).getImage();
-
-            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-
-            setOpaque(false);
-
-            super.paint(g);
-        }
-    }
 }

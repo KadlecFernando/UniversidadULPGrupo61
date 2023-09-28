@@ -199,7 +199,8 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.setVisible(false);
+        //this.setVisible(false);
+        dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnIncribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncribirActionPerformed
@@ -317,7 +318,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
         @Override
         public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("/universidadulpgrupo61/vistas/asd.jpg")).getImage();
+            imagen = new ImageIcon(getClass().getResource("/imagenes/asd.jpg")).getImage();
 
             g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
 
